@@ -20,6 +20,7 @@ import PanelSpriteEditor from '../ObjectEditor/Editors/PanelSpriteEditor';
 import SpriteEditor from '../ObjectEditor/Editors/SpriteEditor';
 import EmptyEditor from '../ObjectEditor/Editors/EmptyEditor';
 import ShapePainterEditor from '../ObjectEditor/Editors/ShapePainterEditor';
+import ExpressionField from '../EventsSheet/InstructionEditor/ParameterFields/ExpressionField';
 import AdMobEditor from '../ObjectEditor/Editors/AdMobEditor';
 import ObjectsList from '../ObjectsList';
 import ObjectSelector from '../ObjectsList/ObjectSelector';
@@ -34,6 +35,7 @@ import ObjectsGroupEditor from '../ObjectsGroupEditor';
 import ObjectsGroupsList from '../ObjectsGroupsList';
 import muiDecorator from './MuiDecorator';
 import paperDecorator from './PaperDecorator';
+import ValueStateHolder from './ValueStateHolder';
 import DragDropContextProvider from '../Utils/DragDropHelpers/DragDropContextProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { makeTestProject } from '../fixtures/TestProject';
@@ -102,6 +104,15 @@ storiesOf('Tabs', module)
     </Tabs>
   ));
 
+storiesOf('ParameterFields', module)
+  .addDecorator(paperDecorator)
+  .addDecorator(muiDecorator)
+  .add('ExpressionField', () => (
+    <ValueStateHolder initialValue={'MySpriteObject.X() + MouseX("", 0)'}>
+      <ExpressionField project={project} layout={testLayout} />
+    </ValueStateHolder>
+  ));
+
 storiesOf('LocalExport', module)
   .addDecorator(paperDecorator)
   .addDecorator(muiDecorator)
@@ -139,7 +150,9 @@ storiesOf('AboutDialog', module)
 
 storiesOf('CreateProjectDialog', module)
   .addDecorator(muiDecorator)
-  .add('default', () => <CreateProjectDialog open examplesComponent={Placeholder} />);
+  .add('default', () => (
+    <CreateProjectDialog open examplesComponent={Placeholder} />
+  ));
 
 storiesOf('LayoutChooserDialog', module)
   .addDecorator(muiDecorator)
